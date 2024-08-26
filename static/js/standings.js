@@ -50,7 +50,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// reload page after every 5 seconds
-setInterval(function() {
-    location.reload();
-}, 5000);
+// scroll slowly until the end of the page then reload
+document.addEventListener('DOMContentLoaded', function() {
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Time when the page should start reloading
+    var startTime = Date.now();
+    var reloadTime = 10000; // 10 seconds
+
+    // Scroll down and check the elapsed time
+    var scrollInterval = setInterval(function() {
+        window.scrollBy(0, 1);
+        
+        // Check if the end of the page is reached
+        if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+            
+            // Check if 10 seconds have passed
+            if (Date.now() - startTime >= reloadTime) {
+                clearInterval(scrollInterval);
+                // Reload the page
+                window.location.href = window.location.href;
+            } else {
+                // Reset scroll to top and continue
+                window.scrollTo(0, 0);
+                startTime = Date.now(); // Reset start time
+            }
+        }
+    }, 15);
+});
+
