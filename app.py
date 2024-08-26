@@ -31,7 +31,9 @@ def index():
     session['api_secret'] = api_secret
     session['group_code'] = group_code
     session['contest_id'] = contest_id
-    return redirect('/standings')
+
+    scroll = request.form.get('scroll')
+    return redirect(f'/standings?scroll={scroll}')
         
 
 @app.route('/standings')

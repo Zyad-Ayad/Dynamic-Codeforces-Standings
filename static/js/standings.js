@@ -50,33 +50,49 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// scroll slowly until the end of the page then reload
+function autoRedload() {
+    setInterval(function() {
+        location.reload();
+    }, 10000);
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Scroll to top
-    window.scrollTo(0, 0);
+    scrollDirection = 1;
 
-    // Time when the page should start reloading
-    var startTime = Date.now();
-    var reloadTime = 10000; // 10 seconds
+    
+    const params = new URLSearchParams(window.location.search);
 
-    // Scroll down and check the elapsed time
-    var scrollInterval = setInterval(function() {
-        window.scrollBy(0, 1);
-        
-        // Check if the end of the page is reached
-        if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
-            
-            // Check if 10 seconds have passed
-            if (Date.now() - startTime >= reloadTime) {
-                clearInterval(scrollInterval);
-                // Reload the page
-                window.location.href = window.location.href;
-            } else {
-                // Reset scroll to top and continue
-                window.scrollTo(0, 0);
-                startTime = Date.now(); // Reset start time
+    if (params.get('scroll') != 'on') {
+        autoRedload();
+        return;
+    }
+    
+    let msPassed = 0;
+
+    setInterval(function() {
+        msPassed += 20;
+        if (scrollDirection == 1) {
+            window.scrollBy(0, 1);
+            if (window.scrollY + window.innerHeight >= document.body.scrollHeight ) {
+                scrollDirection *= -1;
+
+                if (msPassed >= 10000) {
+                    location.reload();
+                }
+
+            }
+        } else {
+            window.scrollBy(0, -1);
+            if (window.scrollY == 0) {
+                scrollDirection *= -1;
+                if (msPassed >= 10000) {
+                    location.reload();
+                }
             }
         }
-    }, 15);
+    }, 20);
+
 });
+
 
