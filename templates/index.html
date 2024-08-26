@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    <link href="/static/css/index.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<form action="/" class="form-container" method="post">
+    <div class="form-group">
+        <label for="key" class="form-label">API Key</label>
+        <input type="text" id="key" name="api_key" placeholder="Key" class="form-input">
+    </div>
+    <div class="form-group">
+        <label for="secret" class="form-label">API Secret</label>
+        <input type="text" id="secret" name="api_secret" placeholder="Secret" class="form-input">
+    </div>
+    <div class="form-group">
+        <label for="groupCode" class="form-label">Group Code</label>
+        <input type="text" id="groupCode" name="group_code" placeholder="Group Code" class="form-input">
+    </div>
+    <div class="form-group">
+        <label for="contestID" class="form-label">Contest ID</label>
+        <input type="text" id="contestID" name="contest_id" placeholder="Contest ID" class="form-input">
+    </div>
+    <input type="submit" value="Submit" class="form-submit">
+</form>
+
+{% endblock %}

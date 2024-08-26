@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<link href="/static/css/standings.css" rel="stylesheet">
+<script src="/static/js/standings.js" defer></script>
+{% endblock %}
+
+{% block title %}Standings - {{data["contest"]["name"]}}{% endblock %}
+
+{% block content %}
+
+<div class="standings">
+    <div class="contest-info">
+        <div class="contest-name">
+            <h1>{{data["contest"]["name"]}}</h1>
+        </div>
+        <div class="timer">
+            {{data["contest"]["durationSeconds"]}},{{data["contest"]["startTimeSeconds"]}}
+        </div>
+    </div>
+
+    <div class="standings-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Solved</th>
+                    <th>Penality</th>
+                    {% for problem in data["problems"] %}
+                    <th>{{problem["index"]}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in data["rows"] %}
+
+                <tr>
+                    <td>{{user["rank"]}}</td>
+                    <td>{{user["party"]["members"][0]["handle"]}}</td>
+                    <td>{{user["points"]|int}}</td>
+                    <td>{{user["penalty"]}}</td>
+                    {% for problem in user["problemResults"] %}
+                        {% if problem["points"] %}
+                        {% if problem["firstAccepted"] %}
+                            <td class="Firstsolved">{{problem["rejectedAttemptCount"]+1}} / {{(problem["bestSubmissionTimeSeconds"]/60)|int}} </td>
+                        {% else %}
+                            <td class="solved">{{problem["rejectedAttemptCount"]+1}} / {{(problem["bestSubmissionTimeSeconds"]/60)|int}} </td>
+                        {% endif %}
+                        {% elif problem["rejectedAttemptCount"] %}
+                        <td class="rejected">{{problem["rejectedAttemptCount"]}} / 0 </td>
+                        {% else %}
+                        <td> 0 / 0</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+
+</div>
+
+{% endblock %}

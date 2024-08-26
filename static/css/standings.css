@@ -1,0 +1,112 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Standings container */
+.standings {
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Contest information section */
+.contest-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.contest-name h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.timer {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Standings table */
+.standings-table {
+    width: 100%;
+}
+
+.standings-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.standings-table th,
+.standings-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.standings-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.standings-table td {
+    background-color: #fff;
+}
+
+.standings-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Specific cell styling */
+.standings-table td.solved {
+    background-color: rgb(167, 248, 167);
+}
+
+.standings-table td.rejected {
+    background-color: #f8a1a1;
+}
+
+.standings-table td.unattempted {
+    background-color: #f2f2f2;
+}
+
+.standings-table td.Firstsolved {
+    background-color: #1eb100;
+}
+
+
+.contest-info {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+.contest-name h1 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.timer {
+    font-size: 1.5em;
+    color: #555;
+    background: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.timer span {
+    display: block;
+    font-size: 0.8em;
+    color: #777;
+}
