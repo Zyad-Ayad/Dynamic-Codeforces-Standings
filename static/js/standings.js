@@ -70,23 +70,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let msPassed = 0;
 
-    setInterval(function() {
+    let scrollInterval = setInterval(function() {
         msPassed += 20;
         if (scrollDirection == 1) {
             window.scrollBy(0, 1);
             if (window.scrollY + window.innerHeight >= document.body.scrollHeight ) {
                 scrollDirection *= -1;
-
-                if (msPassed >= 10000) {
-                    location.reload();
-                }
-
             }
         } else {
             window.scrollBy(0, -1);
             if (window.scrollY == 0) {
                 scrollDirection *= -1;
                 if (msPassed >= 10000) {
+                    clearInterval(scrollInterval);
                     location.reload();
                 }
             }
