@@ -49,6 +49,9 @@ def standings():
     data = get_standings(api_key, api_secret, group_code, contest_id)
     if(not data[0]):
         data[1] = lastdata
+    else:
+        global lastdata
+        lastdata = data[1]
     
 
     
