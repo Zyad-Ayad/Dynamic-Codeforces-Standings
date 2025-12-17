@@ -12,6 +12,9 @@ app.config['SESSION_TYPE'] = 'memory'
 
 
 
+lastdata = None
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
@@ -45,8 +48,9 @@ def standings():
 
     data = get_standings(api_key, api_secret, group_code, contest_id)
     if(not data[0]):
-        flash(data[1])
-        return redirect('/')
+        data[1] = lastdata
+    
+
     
     return render_template('standings.html', data=data[1])
 
