@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template , session, flash, request
+from flask import Flask, redirect, render_template, session, flash, request
 from flask_session import Session
 
 from functions import *
@@ -9,7 +9,6 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config['SECRET_KEY'] = 'This Is Some Secret Key, Change It To Something Else'
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = 'memory'
-
 
 
 lastdata = None
@@ -41,22 +40,28 @@ def index():
 
 @app.route('/standings')
 def standings():
+    global lastdata
     api_key = session.get('api_key')
     api_secret = session.get('api_secret')
     group_code = session.get('group_code')
     contest_id = session.get('contest_id')
-
+    
     data = get_standings(api_key, api_secret, group_code, contest_id)
-    if(not data[0]):
-        data[1] = lastdata
+    
+    if not data[0]:
+        
+        if lastdata is not None:
+            standings_to_render = lastdata
+        else:
+            flash('Error fetching new data and no previous data available.')
+            redirect('/')
+        flash(data[1])
+        flash('Showing last available data.')
     else:
-        global lastdata
         lastdata = data[1]
+        standings_to_render = data[1]
     
-
-    
-    return render_template('standings.html', data=data[1])
-
+    return render_template('standings.html', data=standings_to_render)
 
 
 if __name__ == '__main__':
